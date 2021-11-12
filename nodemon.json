@@ -1,0 +1,6 @@
+{
+  "watch": [".env", ".env.example", "src", "graphql", "nodemon.json"],
+  "ext": "ts,json,graphql",
+  "ignore": ["src/**/*.spec.ts", "src/schema.graphql"],
+  "exec": "yarn build && node ."
+}
