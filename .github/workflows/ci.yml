@@ -18,6 +18,14 @@ jobs:
         with:
           node-version: 14.x
 
+      - name: Create .npmrc file
+        run: |
+          rm -f ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=$TOKEN" > ~/.npmrc
+          echo "@autograders:registry=https://npm.pkg.github.com" >> ~/.npmrc
+        env:
+          TOKEN: ${{ secrets.GH_PKG_TOKEN }}
+
       - name: Installing dependencies
         run: yarn install --frozen-lockfile
 

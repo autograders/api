@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: autograders_db_local
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: autograders
+    ports:
+      - 5432:5432
