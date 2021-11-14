@@ -6,3 +6,31 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+/// User model
+model User {
+  /// User unique identifier
+  id            String   @id @default(cuid())
+  /// User email
+  email         String   @unique
+  /// User password
+  password      String
+  /// User first name
+  firstName     String
+  /// User last name
+  lastName      String
+  /// User avatar
+  avatar        String?
+  /// User auth key
+  authKey       String   @default(cuid())
+  /// If user is verified
+  isVerified    Boolean  @default(false)
+  /// If user is deactivated
+  isDeactivated Boolean  @default(false)
+  /// If user is instructor
+  isInstructor  Boolean  @default(false)
+  /// User creation datetime
+  createdAt     DateTime @default(now())
+  /// User last update datetime
+  updatedAt     DateTime @updatedAt
+}

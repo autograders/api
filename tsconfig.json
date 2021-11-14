@@ -36,7 +36,7 @@
       "@subscriptions/*": ["src/subscriptions/*"],
       "@topics/*": ["src/topics/*"],
       "@utils/*": ["src/utils/*"],
-      "@test/*": ["test/*"]
+      "@mocks/*": ["test/mocks/*"]
     }
   },
   "include": ["src", "test", "prisma"],
