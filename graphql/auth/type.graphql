@@ -5,7 +5,7 @@ type SignUpRespone {
   """
   Pin key.
   """
-  key: String!
+  pin: Pin!
   """
   Created user.
   """

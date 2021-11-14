@@ -51,7 +51,7 @@ describe('AuthService tests', () => {
       password: mockedUser.password
     });
 
-    expect(result.key).toEqual(mockedPin.key);
+    expect(result.pin).toEqual(mockedPin);
     expect(result.newUser).toEqual(mockedUser);
   });
 

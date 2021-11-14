@@ -48,10 +48,10 @@ export class AuthService {
       }
     });
 
-    const { key } = await this.pin.generate({ email });
+    const pin = await this.pin.generate({ email });
 
     return {
-      key,
+      pin,
       newUser
     };
   }
