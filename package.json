@@ -28,6 +28,8 @@
     "lint": "eslint \"{src,test,prisma}/**/*.ts\" --fix"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.41.0",
+    "@nestjs-modules/mailer": "^1.6.0",
     "@nestjs/common": "^8.2.0",
     "@nestjs/core": "^8.2.0",
     "@nestjs/graphql": "^9.1.1",
@@ -38,13 +40,16 @@
     "@prisma/client": "^3.4.2",
     "apollo-server-express": "^3.5.0",
     "argon2": "^0.28.2",
+    "aws-sdk": "^2.1028.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "compression": "^1.7.4",
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
+    "cuid": "^2.1.8",
     "date-fns": "^2.25.0",
     "dotenv-safe": "^8.2.0",
+    "generate-password": "^1.7.0",
     "graphql": "^15.7.2",
     "graphql-subscriptions": "^2.0.0",
     "graphql-tools": "^8.2.0",
@@ -52,6 +57,7 @@
     "helmet": "^4.6.0",
     "imagemin": "7.0.1",
     "imagemin-webp": "6.0.0",
+    "nodemailer": "^6.7.0",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
@@ -83,16 +89,19 @@
     "cpy-cli": "^3.1.1",
     "faker": "^5.5.3",
     "husky": "^7.0.4",
-    "jest": "^27.2.5",
+    "jest": "^27.3.1",
     "jest-mock-extended": "^2.0.4",
     "nodemon": "^2.0.15",
     "prisma": "^3.4.2",
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.20",
-    "ts-jest": "^27.0.3",
-    "ts-node": "^10.0.0",
-    "tsconfig-paths": "^3.10.1",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.11.0",
     "tscpaths": "^0.0.9",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.4"
+  },
+  "prisma": {
+    "seed": "ts-node --project tsconfig.build.json -r tsconfig-paths/register ./prisma/seed.ts"
   }
 }

@@ -1,0 +1,10 @@
+type Pin {
+  """
+  Pin key.
+  """
+  key: String!
+  """
+  Expires in.
+  """
+  expiresIn: BigInt!
+}

@@ -1,0 +1,6 @@
+type Query {
+  """
+  Get a new pin.
+  """
+  getPin(input: EmailInput!): Pin!
+}

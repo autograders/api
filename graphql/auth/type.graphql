@@ -1,0 +1,13 @@
+"""
+Sign up response.
+"""
+type SignUpRespone {
+  """
+  Pin key.
+  """
+  key: String!
+  """
+  Created user.
+  """
+  newUser: User!
+}

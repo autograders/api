@@ -1,0 +1,26 @@
+type Mutation {
+  """
+  Sign up.
+  """
+  signUp(input: SignUpInput!): SignUpRespone!
+  """
+  Verify email.
+  """
+  verifyEmail(input: PinInput!): User!
+  """
+  Sign in.
+  """
+  signIn(input: SignInInput!): User!
+  """
+  Refresh session.
+  """
+  refreshSession: User!
+  """
+  Sign out.
+  """
+  signOut(input: SignOutInput!): Void
+  """
+  Reset password.
+  """
+  resetPassword(input: ResetPasswordInput!): User!
+}

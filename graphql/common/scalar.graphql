@@ -17,3 +17,8 @@ scalar Upload
 Void/Null values.
 """
 scalar Void
+
+"""
+Big integer values.
+"""
+scalar BigInt

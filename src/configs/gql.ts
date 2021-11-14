@@ -71,6 +71,17 @@ export const GQLConfig: GqlModuleOptions = {
         return null;
       }
     }),
+    BigInt: new GraphQLScalarType({
+      name: 'BigInt',
+      description: 'Big integer values',
+      serialize: (value: BigInt) => Number(value),
+      parseValue: (value: string) => BigInt(value),
+      parseLiteral: (ast) => {
+        if (ast.kind === Kind.STRING) return BigInt(ast.value);
+
+        return null;
+      }
+    }),
     Upload: GraphQLUpload
   }
 };

@@ -8,9 +8,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'ts', 'json'],
   testRegex: '.*\\.spec\\.ts$',
   transform: { '^.+\\.ts$': 'ts-jest' },
-  collectCoverageFrom: [
-    'src/providers/services/{!(location|prisma|pub-sub|s3),}.ts'
-  ],
+  collectCoverageFrom: ['src/providers/services/{!(prisma|pub-sub|s3),}.ts'],
   coverageDirectory: './coverage',
   testEnvironment: 'node',
   setupFiles: ['./jest.setup.js'],
