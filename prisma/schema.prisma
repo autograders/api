@@ -33,4 +33,20 @@ model User {
   createdAt     DateTime @default(now())
   /// User last update datetime
   updatedAt     DateTime @updatedAt
+  /// User pins
+  pins          Pin[]
+}
+
+/// Pin model
+model Pin {
+  /// Pin key
+  key       String @id @default(cuid())
+  /// Pin code
+  code      String
+  /// Expiration time
+  expiresIn BigInt
+  /// User id
+  userId    String @unique
+  /// User connection
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

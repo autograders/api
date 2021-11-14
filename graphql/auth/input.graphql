@@ -1,0 +1,63 @@
+"""
+Sign in input.
+"""
+input SignInInput {
+  """
+  User email.
+  """
+  email: String!
+  """
+  User password.
+  """
+  password: String!
+}
+
+"""
+Sign up input.
+"""
+input SignUpInput {
+  """
+  User first name.
+  """
+  firstName: String!
+  """
+  User last name.
+  """
+  lastName: String!
+  """
+  User email.
+  """
+  email: String!
+  """
+  User password.
+  """
+  password: String!
+}
+
+"""
+Reset password input.
+"""
+input ResetPasswordInput {
+  """
+  Pin key.
+  """
+  key: String!
+  """
+  Pin code.
+  """
+  code: String!
+  """
+  New password.
+  """
+  newPassword: String!
+}
+
+"""
+Sign out input.
+"""
+input SignOutInput {
+  """
+  If should sign out from all devices.
+  """
+  allDevices: Boolean
+}

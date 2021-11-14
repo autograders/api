@@ -1,0 +1,45 @@
+"""
+User.
+"""
+type User {
+  """
+  User unique identifier.
+  """
+  id: ID!
+  """
+  User email.
+  """
+  email: String!
+  """
+  User first name.
+  """
+  firstName: String!
+  """
+  User last name.
+  """
+  lastName: String!
+  """
+  User avatar.
+  """
+  avatar: String!
+  """
+  If user is verified.
+  """
+  isVerified: Boolean!
+  """
+  If user is deactivated.
+  """
+  isDeactivated: Boolean!
+  """
+  If user is an instructor.
+  """
+  isInstructor: Boolean!
+  """
+  User creation datetime.
+  """
+  createdAt: DateTime!
+  """
+  User last update datetime.
+  """
+  updatedAt: DateTime!
+}

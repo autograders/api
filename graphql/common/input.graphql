@@ -1,0 +1,33 @@
+"""
+Email input.
+"""
+input EmailInput {
+  """
+  Email address.
+  """
+  email: String!
+}
+
+"""
+Id input.
+"""
+input IdInput {
+  """
+  Entity id.
+  """
+  id: ID!
+}
+
+"""
+Pin input.
+"""
+input PinInput {
+  """
+  Pin key.
+  """
+  key: String!
+  """
+  Pin code.
+  """
+  code: String!
+}
