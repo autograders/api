@@ -2,6 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { User } from '@prisma/client';
 
+import { AppConfig } from '@configs/app';
 import { SessionConfig } from '@configs/session';
 import { CurrentUser } from '@decorators/auth';
 import { AuthGuard } from '@guards/auth';
@@ -15,7 +16,6 @@ import { PinInput } from '@inputs/common';
 import { GQLContext } from '@interfaces/gql';
 import { AuthService } from '@services/auth';
 import { SessionService } from '@services/session';
-import { AppConfig } from '@configs/app';
 
 @Resolver()
 export class AuthResolver {

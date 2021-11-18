@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 
+import { AppConfig } from '@configs/app';
 import { EnvConfig } from '@configs/env';
 import { SessionConfig } from '@configs/session';
 import { GQLContext } from '@interfaces/gql';
-import { AppConfig } from '@configs/app';
 
 @Injectable()
 export class SessionService {
