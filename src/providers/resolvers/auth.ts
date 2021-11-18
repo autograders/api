@@ -15,6 +15,7 @@ import { PinInput } from '@inputs/common';
 import { GQLContext } from '@interfaces/gql';
 import { AuthService } from '@services/auth';
 import { SessionService } from '@services/session';
+import { AppConfig } from '@configs/app';
 
 @Resolver()
 export class AuthResolver {
@@ -57,7 +58,10 @@ export class AuthResolver {
     @Args('input') input: SignOutInput
   ) {
     await this.auth.signOut(user, input);
-    ctx.res.clearCookie(SessionConfig.cookie);
+    ctx.res.clearCookie(SessionConfig.cookie, {
+      path: '/',
+      domain: AppConfig.domain
+    });
   }
 
   @Mutation()

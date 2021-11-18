@@ -5,6 +5,7 @@ import { User } from '@prisma/client';
 import { EnvConfig } from '@configs/env';
 import { SessionConfig } from '@configs/session';
 import { GQLContext } from '@interfaces/gql';
+import { AppConfig } from '@configs/app';
 
 @Injectable()
 export class SessionService {
@@ -25,7 +26,9 @@ export class SessionService {
       httpOnly: true,
       sameSite: true,
       secure: !EnvConfig.isDev,
-      maxAge: SessionConfig.maxAge
+      maxAge: SessionConfig.maxAge,
+      path: '/',
+      domain: AppConfig.domain
     });
 
     return token;
