@@ -27,6 +27,7 @@
       "@decorators/*": ["src/decorators/*"],
       "@enums/*": ["src/enums/*"],
       "@errors": ["src/errors"],
+      "@filters/*": ["src/filters/*"],
       "@guards/*": ["src/guards/*"],
       "@inputs/*": ["src/inputs/*"],
       "@interfaces/*": ["src/interfaces/*"],

@@ -1,16 +1,29 @@
 import { GqlModuleOptions } from '@nestjs/graphql';
+import { parse as parseCookie } from 'cookie';
 import { format } from 'date-fns';
 import { GraphQLScalarType, Kind } from 'graphql';
 import { GraphQLUpload } from 'graphql-upload';
+import { verify } from 'jsonwebtoken';
 import { join } from 'path';
 
 import { AppConfig } from './app';
 import { EnvConfig } from './env';
+import { JWTConfig } from './jwt';
+import { SessionConfig } from './session';
 
 export const GQLConfig: GqlModuleOptions = {
   playground: EnvConfig.isDev,
   typePaths: [join(__dirname, '..', 'schema.graphql')],
   installSubscriptionHandlers: true,
+  formatError: (error) => {
+    if (error.extensions?.exception) {
+      const extensions = error.extensions;
+      delete extensions.exception;
+      return { ...error, extensions };
+    }
+
+    return error;
+  },
   context: ({ req, res, connection }) => {
     if (connection) return connection.context;
 
@@ -22,7 +35,7 @@ export const GQLConfig: GqlModuleOptions = {
   cors: AppConfig.cors,
   subscriptions: {
     'subscriptions-transport-ws': {
-      onConnect: () => {
+      onConnect: (_: any, webSocket: any) => {
         /*
          * NOTE:
          *
@@ -34,7 +47,12 @@ export const GQLConfig: GqlModuleOptions = {
          * ref: https://github.com/apollographql/subscriptions-transport-ws/issues/349
          */
         try {
-          return true;
+          const cookie = parseCookie(webSocket.upgradeReq.headers.cookie || '');
+          const data = verify(
+            cookie[SessionConfig.cookie],
+            JWTConfig.secret
+          ) as any;
+          return { userId: data.id };
         } catch (error) {
           return {};
         }
