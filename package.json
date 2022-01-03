@@ -68,7 +68,7 @@
     "@autograders/eslint-config-node": "^1.0.0-5d2b9af",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
-    "@graphql-tools/load-files": "^6.5.2",
+    "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.1",
     "@nestjs/cli": "^8.1.6",
     "@nestjs/schematics": "^8.0.0",
