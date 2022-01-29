@@ -10,6 +10,8 @@ import helmet from 'helmet';
 import { App } from '@app';
 import { AppConfig } from '@configs/app';
 import { EnvConfig } from '@configs/env';
+import { ExceptionFilter } from '@filters/exception';
+import { ValidationPipe } from '@pipes/validation';
 
 async function bootstrap() {
   const app = await NestFactory.create(App);
@@ -17,6 +19,8 @@ async function bootstrap() {
   app.use(compression());
   app.use(cookieParser());
   app.use(graphqlUploadExpress());
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(new ExceptionFilter());
   app.enableCors(AppConfig.cors);
 
   if (!EnvConfig.isDev) app.use(helmet());
