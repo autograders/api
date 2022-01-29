@@ -2,8 +2,8 @@ import { config as loadEnv } from 'dotenv-safe';
 loadEnv();
 
 import { NestFactory } from '@nestjs/core';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
+import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
 import { graphqlUploadExpress } from 'graphql-upload';
 import helmet from 'helmet';
 
