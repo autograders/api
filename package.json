@@ -58,7 +58,8 @@
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.2",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@autograders/eslint-config-node": "^1.0.1",
@@ -78,6 +79,7 @@
     "@types/node": "^16.0.0",
     "@types/passport": "^1.0.7",
     "@types/passport-jwt": "^3.0.6",
+    "@types/validator": "^13.7.1",
     "faker": "^6.6.6",
     "husky": "^7.0.4",
     "jest": "^27.2.5",
@@ -90,5 +92,8 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
+  },
+  "prisma": {
+    "seed": "node prisma/seed"
   }
 }

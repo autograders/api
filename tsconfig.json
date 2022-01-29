@@ -30,12 +30,13 @@
       "@interfaces/*": ["src/interfaces/*"],
       "@pipes/*": ["src/pipes/*"],
       "@resolvers/*": ["src/resolvers/*"],
+      "@scalars/*": ["src/scalars/*"],
       "@services/*": ["src/services/*"],
       "@strategies/*": ["src/strategies/*"],
-      "@scalars/*": ["src/scalars/*"],
       "@subscriptions/*": ["src/subscriptions/*"],
       "@topics/*": ["src/topics/*"],
       "@utils/*": ["src/utils/*"],
+      "@validators/*": ["src/validators/*"],
       "@mocks/*": ["mocks/*"]
     }
   }

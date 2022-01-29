@@ -26,3 +26,16 @@ model User {
   createdAt     DateTime @default(now()) @db.Timestamptz
   updatedAt     DateTime @updatedAt @db.Timestamptz
 }
+
+//####################################
+// Token
+//####################################
+
+model Token {
+  id         String   @id @default(cuid())
+  expiration BigInt
+  email      String   @unique
+  isUsed     Boolean  @default(false)
+  createdAt  DateTime @default(now()) @db.Timestamptz
+  updatedAt  DateTime @updatedAt @db.Timestamptz
+}

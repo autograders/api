@@ -1,0 +1,97 @@
+"""
+Sign up input.
+"""
+input SignUpInput {
+  """
+  User first name.
+  """
+  firstName: String!
+  """
+  User last name.
+  """
+  lastName: String!
+  """
+  User email.
+  """
+  email: String!
+  """
+  User password.
+  """
+  password: String!
+}
+
+"""
+Resend email verification input.
+"""
+input ResendEmailVerificationInput {
+  """
+  User email.
+  """
+  email: String!
+}
+
+"""
+Verify email input.
+"""
+input VerifyEmailInput {
+  """
+  User email.
+  """
+  email: String!
+  """
+  User token.
+  """
+  token: String!
+}
+
+"""
+Sign in input.
+"""
+input SignInInput {
+  """
+  User email.
+  """
+  email: String!
+  """
+  User password.
+  """
+  password: String!
+}
+
+"""
+Sign out input.
+"""
+input SignOutInput {
+  """
+  All devices flag.
+  """
+  allDevices: Boolean
+}
+
+"""
+Forgot password input.
+"""
+input ForgotPasswordInput {
+  """
+  User email.
+  """
+  email: String!
+}
+
+"""
+Reset password input.
+"""
+input ResetPasswordInput {
+  """
+  User email.
+  """
+  email: String!
+  """
+  User token.
+  """
+  token: String!
+  """
+  User new password.
+  """
+  newPassword: String!
+}

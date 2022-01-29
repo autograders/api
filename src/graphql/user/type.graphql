@@ -1,0 +1,45 @@
+"""
+User.
+"""
+type User {
+  """
+  User id.
+  """
+  id: ID!
+  """
+  User email.
+  """
+  email: String!
+  """
+  User first name.
+  """
+  firstName: String!
+  """
+  User last name.
+  """
+  lastName: String!
+  """
+  User avatar.
+  """
+  avatar: String
+  """
+  User is verified flag.
+  """
+  isVerified: Boolean!
+  """
+  User is instructor flag.
+  """
+  isInstructor: Boolean!
+  """
+  User is deactivated flag.
+  """
+  isDeactivated: Boolean!
+  """
+  User created at.
+  """
+  createdAt: DateTime!
+  """
+  User updated at.
+  """
+  updatedAt: DateTime!
+}
