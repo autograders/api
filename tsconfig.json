@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "baseUrl": "./",
+    "paths": {
+      "@app": ["src/app"],
+      "@configs/*": ["src/configs/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@decorators/*": ["src/decorators/*"],
+      "@enums/*": ["src/enums/*"],
+      "@errors/*": ["src/errors/*"],
+      "@filters/*": ["src/filters/*"],
+      "@guards/*": ["src/guards/*"],
+      "@inputs/*": ["src/inputs/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@pipes/*": ["src/pipes/*"],
+      "@resolvers/*": ["src/resolvers/*"],
+      "@services/*": ["src/services/*"],
+      "@strategies/*": ["src/strategies/*"],
+      "@subscriptions/*": ["src/subscriptions/*"],
+      "@topics/*": ["src/topics/*"],
+      "@utils/*": ["src/utils/*"],
+      "@mocks/*": ["mocks/*"]
+    }
+  }
+}
