@@ -1,6 +1,6 @@
 import { ValidationError, ValidationPipe as Pipe } from '@nestjs/common';
 
-import { APIError } from '@utils/errors';
+import { APIError } from '@shared/utils/errors';
 
 export class ValidationPipe extends Pipe {
   constructor() {
@@ -11,7 +11,7 @@ export class ValidationPipe extends Pipe {
           internalCode: 'validation',
           module: 'global',
           message: 'Invalid input.',
-          additional: { validationErrors }
+          extensions: { validationErrors }
         });
       }
     });

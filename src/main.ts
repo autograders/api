@@ -7,14 +7,14 @@ import * as cookieParser from 'cookie-parser';
 import { graphqlUploadExpress } from 'graphql-upload';
 import helmet from 'helmet';
 
-import { App } from '@app';
+import { AppModule } from '@app';
 import { AppConfig } from '@configs/app';
 import { EnvConfig } from '@configs/env';
-import { ExceptionFilter } from '@filters/exception';
-import { ValidationPipe } from '@pipes/validation';
+import { ExceptionFilter } from '@shared/filters/exception.filter';
+import { ValidationPipe } from '@shared/pipes/validation.pipe';
 
 async function bootstrap() {
-  const app = await NestFactory.create(App);
+  const app = await NestFactory.create(AppModule);
 
   app.use(compression());
   app.use(cookieParser());

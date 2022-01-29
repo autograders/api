@@ -1,0 +1,29 @@
+# git and github
+.git
+.github
+.gitignore
+
+# log files
+*.log
+
+# node files
+node_modules
+
+# test files
+test
+*.spec.ts
+*.test.ts
+coverage
+
+# repo files
+docker-compose.yml
+jest.config.js
+jest.setup.js
+.eslintrc.js
+.prettierrc
+LICENSE
+nest-cli.json
+nodemon.json
+README.md
+Dockerfile
+*.env

@@ -1,10 +1,10 @@
-import { APIErrorOptions } from '@interfaces/error';
+import { APIErrorOptions } from '@shared/interfaces/api-error-options';
 
 export class APIError extends Error {
   readonly internalCode: string;
   readonly module: string;
   readonly message: string;
-  readonly additional?: any;
+  readonly extensions?: any;
 
   constructor(options: APIErrorOptions) {
     super(options.message);
@@ -12,6 +12,6 @@ export class APIError extends Error {
     this.internalCode = options.internalCode;
     this.module = options.module;
     this.message = options.message;
-    this.additional = options.additional || {};
+    this.extensions = options.extensions || {};
   }
 }

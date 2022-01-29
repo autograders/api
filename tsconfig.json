@@ -18,24 +18,10 @@
     "noFallthroughCasesInSwitch": false,
     "baseUrl": "./",
     "paths": {
-      "@app": ["src/app"],
       "@configs/*": ["src/configs/*"],
-      "@controllers/*": ["src/controllers/*"],
-      "@decorators/*": ["src/decorators/*"],
-      "@enums/*": ["src/enums/*"],
-      "@errors/*": ["src/errors/*"],
-      "@filters/*": ["src/filters/*"],
-      "@guards/*": ["src/guards/*"],
-      "@inputs/*": ["src/inputs/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@pipes/*": ["src/pipes/*"],
-      "@resolvers/*": ["src/resolvers/*"],
-      "@services/*": ["src/services/*"],
-      "@strategies/*": ["src/strategies/*"],
-      "@scalars/*": ["src/scalars/*"],
-      "@subscriptions/*": ["src/subscriptions/*"],
-      "@topics/*": ["src/topics/*"],
-      "@utils/*": ["src/utils/*"],
+      "@modules/*": ["src/modules/*"],
+      "@shared/*": ["src/shared/*"],
+      "@app": ["src/app.module"],
       "@mocks/*": ["mocks/*"]
     }
   }

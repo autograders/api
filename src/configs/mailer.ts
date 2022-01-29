@@ -1,12 +1,14 @@
-import * as aws from '@aws-sdk/client-ses';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { join } from 'path';
 
 export const MailerConfig = {
   transport: {
-    SES: {
-      ses: new aws.SES({ apiVersion: '2010-12-01' }),
-      aws
+    host: 'mail.privateemail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD
     }
   },
   defaults: {

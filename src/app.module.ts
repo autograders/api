@@ -7,17 +7,15 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { GQLConfig } from '@configs/gql';
 import { JWTConfig } from '@configs/jwt';
 import { MailerConfig } from '@configs/mailer';
-import { DBService } from '@services/db';
-import { PubSubService } from '@services/pub-sub';
+import { AuthModule } from '@modules/auth';
 
 @Module({
   imports: [
     GraphQLModule.forRoot(GQLConfig),
+    JwtModule.register(JWTConfig),
     MailerModule.forRoot(MailerConfig),
     ScheduleModule.forRoot(),
-    JwtModule.register(JWTConfig)
-  ],
-  controllers: [],
-  providers: [DBService, PubSubService]
+    AuthModule
+  ]
 })
-export class App {}
+export class AppModule {}

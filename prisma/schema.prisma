@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,8 +8,32 @@ datasource db {
 }
 
 //####################################
+// Enumerations
+//####################################
+
+enum TokenType {
+  VERIFY_EMAIL
+  FORGOT_PASSWORD
+}
+
+enum Status {
+  PENDING
+  IN_PROGRESS
+  COMPLETE
+  ERROR
+}
+
+enum Visibility {
+  HIDDEN
+  AFTER_DUE_DATE
+  AFTER_PUBLISHED
+  VISIBLE
+}
+
+//####################################
 // User
 //####################################
+
 model User {
   id            String   @id @default(cuid())
   email         String   @unique
@@ -25,4 +46,70 @@ model User {
   isDeactivated Boolean  @default(false)
   createdAt     DateTime @default(now()) @db.Timestamptz
   updatedAt     DateTime @updatedAt @db.Timestamptz
+}
+
+//####################################
+// Assignment
+//####################################
+
+model Assignment {
+  id          String       @id @default(cuid())
+  name        String
+  releaseDate DateTime     @db.Timestamptz
+  autograder  String
+  leaderboard Boolean      @default(false)
+  createdAt   DateTime     @default(now()) @db.Timestamptz
+  updatedAt   DateTime     @updatedAt @db.Timestamptz
+  // submission relation
+  submissions Submission[]
+}
+
+//####################################
+// Submission
+//####################################
+model Submission {
+  id           String     @id @default(cuid())
+  status       Status     @default(PENDING)
+  score        Float      @default(0.0)
+  email        String
+  output       String     @default("")
+  source       String
+  createdAt    DateTime   @default(now()) @db.Timestamptz
+  updatedAt    DateTime   @updatedAt @db.Timestamptz
+  // assignment relation
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  // test relation
+  tests        TestCase[]
+}
+
+//####################################
+// Test Case
+//####################################
+
+model TestCase {
+  id           String     @id @default(cuid())
+  name         String
+  score        Float      @default(0.0)
+  output       String     @default("")
+  visibility   Visibility @default(HIDDEN)
+  createdAt    DateTime   @default(now()) @db.Timestamptz
+  updatedAt    DateTime   @updatedAt @db.Timestamptz
+  // submission relation
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+}
+
+//####################################
+// Token
+//####################################
+
+model Token {
+  id         String    @id @default(cuid())
+  expiration BigInt
+  type       TokenType
+  email      String
+  isUsed     Boolean   @default(false)
+  createdAt  DateTime  @default(now()) @db.Timestamptz
+  updatedAt  DateTime  @updatedAt @db.Timestamptz
 }
