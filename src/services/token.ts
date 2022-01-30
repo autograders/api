@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { Cron } from '@nestjs/schedule';
+import { Model } from 'mongoose';
 
 import { TokenConfig } from '@configs/token';
 import { ExpiredToken } from '@errors/token/expired-token';
@@ -8,36 +10,45 @@ import { TokenAlreadyUsed } from '@errors/token/token-already-used';
 import { TokenNotFound } from '@errors/token/token-not-found';
 import { CreateTokenInput } from '@inputs/token/create';
 import { VerifyTokenInput } from '@inputs/token/verify';
-
-import { DBService } from './db';
+import { Token, TokenDocument } from '@models/token';
 
 @Injectable()
 export class TokenService {
-  constructor(private readonly db: DBService) {}
+  constructor(
+    @InjectModel(Token.name) private readonly token: Model<TokenDocument>
+  ) {}
 
   async create(input: CreateTokenInput) {
-    return await this.db.token.upsert({
-      where: {
+    return await this.token.findOneAndUpdate(
+      {
         email: input.email
       },
-      update: {
-        isUsed: false,
-        expiration: Date.now() + TokenConfig.expiresIn
+      {
+        $set: {
+          email: input.email,
+          isUsed: false,
+          expiration: Date.now() + TokenConfig.expiresIn
+        }
       },
-      create: {
-        email: input.email,
-        isUsed: false,
-        expiration: Date.now() + TokenConfig.expiresIn
+      {
+        upsert: true,
+        returnDocument: 'after'
       }
-    });
+    );
   }
 
   async verify(input: VerifyTokenInput) {
-    const token = await this.db.token.findUnique({
-      where: {
-        id: input.id
+    const token = await this.token.findByIdAndUpdate(
+      input.id,
+      {
+        $set: {
+          isUsed: true
+        }
+      },
+      {
+        returnOriginal: true
       }
-    });
+    );
 
     if (!token) {
       throw TokenNotFound;
@@ -57,31 +68,22 @@ export class TokenService {
       throw TokenAlreadyUsed;
     }
 
-    return await this.db.token.update({
-      where: {
-        id: input.id
-      },
-      data: {
-        isUsed: true
-      }
-    });
+    return token;
   }
 
   @Cron('0 0 0 * * *')
   async cleanExpiredTokens() {
-    return await this.db.token.deleteMany({
-      where: {
-        OR: [
-          {
-            isUsed: true
-          },
-          {
-            expiration: {
-              lte: Date.now()
-            }
+    return await this.token.deleteMany({
+      $or: [
+        {
+          isUsed: true
+        },
+        {
+          expiration: {
+            $lte: Date.now()
           }
-        ]
-      }
+        }
+      ]
     });
   }
 }

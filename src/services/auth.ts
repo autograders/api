@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { InjectModel } from '@nestjs/mongoose';
 import { MailerService } from '@nestjs-modules/mailer';
+import { Model } from 'mongoose';
 
 import { AppConfig } from '@configs/app';
 import { EnvConfig } from '@configs/env';
@@ -18,16 +20,16 @@ import { SignInInput } from '@inputs/auth/sign-in';
 import { SignUpInput } from '@inputs/auth/sign-up';
 import { VerifyEmailInput } from '@inputs/auth/verify-email';
 import { GQLContext } from '@interfaces/gql';
+import { User, UserDocument } from '@models/user';
 import { getURL } from '@utils/url';
 
-import { DBService } from './db';
 import { PasswordService } from './password';
 import { TokenService } from './token';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly db: DBService,
+    @InjectModel(User.name) private readonly user: Model<UserDocument>,
     private readonly jwt: JwtService,
     private readonly mailer: MailerService,
     private readonly password: PasswordService,
@@ -35,27 +37,19 @@ export class AuthService {
   ) {}
 
   async signUp(input: SignUpInput) {
-    const user = await this.db.user.findFirst({
-      where: {
-        OR: [
-          {
-            email: input.email
-          }
-        ]
-      }
+    const user = await this.user.findOne({
+      email: input.email
     });
 
     if (user) {
       throw UserAlreadyExist;
     }
 
-    const newUser = await this.db.user.create({
-      data: {
-        firstName: input.firstName,
-        lastName: input.lastName,
-        email: input.email,
-        password: await this.password.hash(input.password)
-      }
+    const newUser = await this.user.create({
+      firstName: input.firstName,
+      lastName: input.lastName,
+      email: input.email,
+      password: await this.password.hash(input.password)
     });
 
     const token = await this.token.create(newUser);
@@ -80,14 +74,8 @@ export class AuthService {
   }
 
   async resendEmailVerification(input: ResendEmailVerificationInput) {
-    const user = await this.db.user.findFirst({
-      where: {
-        OR: [
-          {
-            email: input.email
-          }
-        ]
-      }
+    const user = await this.user.findOne({
+      email: input.email
     });
 
     if (!user) {
@@ -127,15 +115,19 @@ export class AuthService {
       email: input.email
     });
 
-    const user = await this.db.user.findFirst({
-      where: {
-        OR: [
-          {
-            email
-          }
-        ]
+    const user = await this.user.findOneAndUpdate(
+      {
+        email
+      },
+      {
+        $set: {
+          isVerified: true
+        }
+      },
+      {
+        returnOriginal: true
       }
-    });
+    );
 
     if (!user) {
       throw UserNotFound;
@@ -149,21 +141,12 @@ export class AuthService {
       throw UserAlreadyVerified;
     }
 
-    return await this.db.user.update({
-      where: {
-        id: user.id
-      },
-      data: {
-        isVerified: true
-      }
-    });
+    return user;
   }
 
   async signIn(input: SignInInput, ctx: GQLContext) {
-    const user = await this.db.user.findUnique({
-      where: {
-        email: input.email
-      }
+    const user = await this.user.findOne({
+      email: input.email
     });
 
     if (!user) {
@@ -205,10 +188,8 @@ export class AuthService {
   }
 
   async forgotPassword(input: ForgotPasswordInput) {
-    const user = await this.db.user.findUnique({
-      where: {
-        email: input.email
-      }
+    const user = await this.user.findOne({
+      email: input.email
     });
 
     if (!user) {
@@ -248,15 +229,19 @@ export class AuthService {
       email: input.email
     });
 
-    const user = await this.db.user.findFirst({
-      where: {
-        OR: [
-          {
-            email
-          }
-        ]
+    const user = await this.user.findOneAndUpdate(
+      {
+        email
+      },
+      {
+        $set: {
+          password: await this.password.hash(input.newPassword)
+        }
+      },
+      {
+        returnDocument: 'after'
       }
-    });
+    );
 
     if (!user) {
       throw UserNotFound;
@@ -270,13 +255,6 @@ export class AuthService {
       throw UserNotVerified;
     }
 
-    return await this.db.user.update({
-      where: {
-        id: user.id
-      },
-      data: {
-        password: await this.password.hash(input.newPassword)
-      }
-    });
+    return user;
   }
 }

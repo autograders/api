@@ -28,6 +28,8 @@
       "@guards/*": ["src/guards/*"],
       "@inputs/*": ["src/inputs/*"],
       "@interfaces/*": ["src/interfaces/*"],
+      "@models": ["src/models"],
+      "@models/*": ["src/models/*"],
       "@pipes/*": ["src/pipes/*"],
       "@resolvers/*": ["src/resolvers/*"],
       "@scalars/*": ["src/scalars/*"],

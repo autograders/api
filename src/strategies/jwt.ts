@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
+import { Model } from 'mongoose';
 import { Strategy } from 'passport-jwt';
 
 import { JWTConfig } from '@configs/jwt';
@@ -8,11 +10,13 @@ import { SessionConfig } from '@configs/session';
 import { UserIsDeactivated } from '@errors/user/user-is-deactivated';
 import { UserNotFound } from '@errors/user/user-not-found';
 import { UserNotVerified } from '@errors/user/user-not-verified';
-import { DBService } from '@services/db';
+import { User, UserDocument } from '@models/user';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private readonly db: DBService) {
+  constructor(
+    @InjectModel(User.name) private readonly user: Model<UserDocument>
+  ) {
     super({
       jwtFromRequest: (req: Request) => {
         if (!req || !req.cookies) return null;
@@ -24,11 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(data: any) {
-    const user = await this.db.user.findUnique({
-      where: {
-        id: data.id
-      }
-    });
+    const user = await this.user.findById(data._id);
 
     if (!user) {
       throw UserNotFound;
