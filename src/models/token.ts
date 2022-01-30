@@ -1,15 +1,26 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema({ timestamps: true })
+@Schema({
+  timestamps: true
+})
 export class Token {
-  @Prop()
+  @Prop({
+    type: Number,
+    required: true
+  })
   expiration: number;
 
-  @Prop({ unique: true })
+  @Prop({
+    type: String,
+    unique: true
+  })
   email: string;
 
-  @Prop()
+  @Prop({
+    type: Boolean,
+    default: false
+  })
   isUsed: boolean;
 }
 

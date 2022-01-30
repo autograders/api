@@ -10,10 +10,12 @@ import { GQLConfig } from '@configs/gql';
 import { JWTConfig } from '@configs/jwt';
 import { MailerConfig } from '@configs/mailer';
 import { Models } from '@models';
+import { AuthResolver } from '@resolvers/auth';
 import { AuthService } from '@services/auth';
 import { PasswordService } from '@services/password';
 import { PubSubService } from '@services/pub-sub';
 import { TokenService } from '@services/token';
+import { JwtStrategy } from '@strategies/jwt';
 
 @Module({
   imports: [
@@ -24,7 +26,16 @@ import { TokenService } from '@services/token';
     MongooseModule.forFeature(Models),
     ScheduleModule.forRoot()
   ],
-  controllers: [],
-  providers: [AuthService, PasswordService, PubSubService, TokenService]
+  providers: [
+    // resolvers
+    AuthResolver,
+    // services
+    AuthService,
+    PasswordService,
+    PubSubService,
+    TokenService,
+    // strategies
+    JwtStrategy
+  ]
 })
 export class App {}

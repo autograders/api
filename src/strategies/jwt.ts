@@ -28,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(data: any) {
-    const user = await this.user.findById(data._id);
+    const user = await this.user.findById(data.id);
 
     if (!user) {
       throw UserNotFound;
