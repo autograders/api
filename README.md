@@ -10,4 +10,5 @@
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/github/license/autograders/api" />
+  <img alt="CI" src="https://github.com/autograders/api/actions/workflows/ci.yml/badge.svg" />
 </p>
