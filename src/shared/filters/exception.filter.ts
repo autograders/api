@@ -43,8 +43,7 @@ export class ExceptionFilter implements Filter {
     }
 
     if (exception instanceof APIError) {
-      return new ApolloError(exception.message, exception.internalCode, {
-        internalCode: exception.internalCode,
+      return new ApolloError(exception.message, exception.module, {
         module: exception.module,
         message: exception.message,
         timestamp: new Date().toISOString(),
@@ -65,6 +64,8 @@ export class ExceptionFilter implements Filter {
         timestamp: new Date().toISOString()
       });
     }
+
+    console.log(exception);
 
     return new ApolloError('Internal server error, try again.', 'internal', {
       module: '505',

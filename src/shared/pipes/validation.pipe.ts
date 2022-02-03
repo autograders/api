@@ -8,7 +8,6 @@ export class ValidationPipe extends Pipe {
       whitelist: true,
       exceptionFactory: (validationErrors: ValidationError[]) => {
         return new APIError({
-          internalCode: 'validation',
           module: 'global',
           message: 'Invalid input.',
           extensions: { validationErrors }
