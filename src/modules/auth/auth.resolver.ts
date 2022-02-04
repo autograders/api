@@ -53,7 +53,6 @@ export class AuthResolver {
     nullable: false,
     description: 'Reset password.'
   })
-  @UseGuards(UserGuard)
   resetPassword(@Args('input') input: ResetPasswordInput) {
     return this.authService.resetPassword(input);
   }

@@ -102,7 +102,7 @@ export class AuthService {
       throw new UserIsDeactivated();
     }
 
-    const validPassword = verify(user.password, input.password);
+    const validPassword = await verify(user.password, input.password);
 
     if (!validPassword) {
       throw new WrongCredentials();
