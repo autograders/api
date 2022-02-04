@@ -7,6 +7,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import DBConfig from '@configs/db';
 import { GQLConfig } from '@configs/gql';
 import { MailerConfig } from '@configs/mailer';
+import { AssignmentModule } from '@modules/assignment';
 import { AuthModule } from '@modules/auth';
 import { TokenModule } from '@modules/token';
 
@@ -17,7 +18,8 @@ import { TokenModule } from '@modules/token';
     MailerModule.forRoot(MailerConfig),
     ScheduleModule.forRoot(),
     AuthModule,
-    TokenModule
+    TokenModule,
+    AssignmentModule
   ]
 })
 export class AppModule {}

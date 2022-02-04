@@ -11,7 +11,7 @@ import { Document } from 'mongoose';
 export class User {
   @Field(() => ID, {
     nullable: false,
-    description: 'User id'
+    description: 'User id.'
   })
   id: string;
 
@@ -22,7 +22,7 @@ export class User {
   })
   @Field(() => String, {
     nullable: false,
-    description: 'User email'
+    description: 'User email.'
   })
   email: string;
 
