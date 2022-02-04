@@ -16,6 +16,7 @@ import { SubmissionService } from './submission.service';
     ]),
     S3Module
   ],
-  providers: [SubmissionResolver, SubmissionService]
+  providers: [SubmissionResolver, SubmissionService],
+  exports: [SubmissionService]
 })
 export class SubmissionModule {}

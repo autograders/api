@@ -12,6 +12,7 @@ import { AssignmentService } from './assignment.service';
       { name: Assignment.name, schema: AssignmentSchema }
     ])
   ],
-  providers: [AssignmentResolver, AssignmentService]
+  providers: [AssignmentResolver, AssignmentService],
+  exports: [AssignmentService]
 })
 export class AssignmentModule {}

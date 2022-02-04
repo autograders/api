@@ -16,6 +16,7 @@ import { AuthStrategy } from './auth.strategy';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     TokenModule
   ],
-  providers: [AuthResolver, AuthService, AuthStrategy]
+  providers: [AuthResolver, AuthService, AuthStrategy],
+  exports: [AuthService]
 })
 export class AuthModule {}

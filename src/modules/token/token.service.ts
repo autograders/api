@@ -5,6 +5,10 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Model } from 'mongoose';
 
 import { TokenConfig } from '@configs/token';
+import { ExpiredToken } from '@errors/token/expired-token';
+import { InvalidToken } from '@errors/token/invalid-token';
+import { TokenAlreadyUsed } from '@errors/token/token-already-used';
+import { TokenNotFound } from '@errors/token/token-not-found';
 import { UserNotFound } from '@errors/user/user-not-found';
 import { Token, TokenDocument } from '@models/token';
 import { User, UserDocument } from '@models/user';
@@ -12,10 +16,6 @@ import { TokenType } from '@shared/enums/token-type';
 
 import { SendTokenInput } from './dto/send.input';
 import { VerifyTokenInput } from './dto/verify.input';
-import { ExpiredToken } from './errors/expired-token';
-import { InvalidToken } from './errors/invalid-token';
-import { TokenAlreadyUsed } from './errors/token-already-used';
-import { TokenNotFound } from './errors/token-not-found';
 
 @Injectable()
 export class TokenService {
