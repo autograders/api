@@ -67,7 +67,8 @@ export class Submission {
 
   @Prop({
     type: String,
-    required: true
+    required: false,
+    default: ''
   })
   @Field(() => String, {
     nullable: false,
@@ -102,6 +103,10 @@ export class Submission {
       }
     })
   ])
+  @Field(() => [TestCase], {
+    nullable: false,
+    description: 'Submission test cases.'
+  })
   testCases: TestCase[];
 
   @Field(() => Date, {

@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 
 import { User } from '@models/user';
 import { AuthUser } from '@shared/decorators/auth-user.decorator';
@@ -15,11 +15,6 @@ import { VerifyEmailInput } from './dto/verify-email.input';
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
-
-  @Query(() => Boolean)
-  dummy() {
-    return true;
-  }
 
   @Mutation(() => User, {
     nullable: false,

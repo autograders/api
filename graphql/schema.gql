@@ -61,11 +61,63 @@ type User {
   updatedAt: DateTime!
 }
 
-type Query {
-  dummy: Boolean!
+"""Test case."""
+type TestCase {
+  """Test case name."""
+  name: String!
 
+  """Test case score."""
+  score: Float!
+
+  """Test case output."""
+  output: String!
+}
+
+"""Submission."""
+type Submission {
+  """Submission id."""
+  id: ID!
+
+  """Submission status."""
+  status: String!
+
+  """Submission score."""
+  score: String!
+
+  """Submission user."""
+  user: User!
+
+  """Submission assignment."""
+  assignment: Assignment!
+
+  """Submission output."""
+  output: String!
+
+  """Submission source code."""
+  sourceCode: String!
+
+  """Submission test cases."""
+  testCases: [TestCase!]!
+
+  """Submission created at."""
+  createdAt: DateTime!
+
+  """Submission updated at."""
+  updatedAt: DateTime!
+}
+
+type Query {
   """Get assignments."""
   getAssignments: [Assignment!]!
+
+  """Get submission."""
+  getSubmission(input: GetSubmissionInput!): Submission!
+}
+
+"""Get submission input."""
+input GetSubmissionInput {
+  """Assignment id."""
+  assignmentId: String!
 }
 
 type Mutation {
@@ -95,6 +147,9 @@ type Mutation {
 
   """Delete assignment."""
   deleteAssignment(input: DeleteAssignmentInput!): Assignment!
+
+  """Create submission."""
+  createSubmission(file: Upload!, input: CreateSubmissionInput!): Submission!
 }
 
 """Sign up input."""
@@ -186,6 +241,15 @@ input PatchAssignmentInput {
 
 """Delete assignment input."""
 input DeleteAssignmentInput {
+  """Assignment id."""
+  assignmentId: String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+"""Create submission input."""
+input CreateSubmissionInput {
   """Assignment id."""
   assignmentId: String!
 }

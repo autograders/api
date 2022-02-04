@@ -9,6 +9,8 @@ import { GQLConfig } from '@configs/gql';
 import { MailerConfig } from '@configs/mailer';
 import { AssignmentModule } from '@modules/assignment';
 import { AuthModule } from '@modules/auth';
+import { S3Module } from '@modules/s3';
+import { SubmissionModule } from '@modules/submission';
 import { TokenModule } from '@modules/token';
 
 @Module({
@@ -19,7 +21,9 @@ import { TokenModule } from '@modules/token';
     ScheduleModule.forRoot(),
     AuthModule,
     TokenModule,
-    AssignmentModule
+    AssignmentModule,
+    SubmissionModule,
+    S3Module
   ]
 })
 export class AppModule {}
