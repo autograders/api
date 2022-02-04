@@ -42,7 +42,7 @@ export class AuthService {
     const user = await this.userModel.create({
       email: input.email,
       password: await hash(input.password),
-      firstName: input.email,
+      firstName: input.firstName,
       lastName: input.lastName
     });
 
