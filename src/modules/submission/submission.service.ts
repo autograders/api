@@ -5,7 +5,6 @@ import { Model } from 'mongoose';
 
 import { AssignmentNotFound } from '@errors/assignment/assignment-not-found';
 import { InvalidSubmissionFile } from '@errors/submission/invalid-submission-file';
-import { SubmissionNotFound } from '@errors/submission/submission-not-found';
 import { Assignment, AssignmentDocument } from '@models/assignment';
 import { Submission, SubmissionDocument } from '@models/submission';
 import { User } from '@models/user';
@@ -33,19 +32,17 @@ export class SubmissionService {
       throw new AssignmentNotFound();
     }
 
-    const submission = await this.submissionModel
-      .findOne({
+    const result = await this.submissionModel
+      .find({
         user,
         assignment
       })
+      .sort('createdAt')
+      .limit(1)
       .populate('user')
       .populate('assignment');
 
-    if (!submission) {
-      throw new SubmissionNotFound();
-    }
-
-    return submission;
+    return result.pop();
   }
 
   async getBest(user: User, input: GetSubmissionInput) {

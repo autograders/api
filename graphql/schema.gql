@@ -111,7 +111,7 @@ type Query {
   getAssignments: [Assignment!]!
 
   """Get submission."""
-  getSubmission(input: GetSubmissionInput!): Submission!
+  getSubmission(input: GetSubmissionInput!): Submission
 
   """Get best submission."""
   getBestSubmission(input: GetSubmissionInput!): Submission

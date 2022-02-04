@@ -16,7 +16,7 @@ export class SubmissionResolver {
   constructor(private readonly submissionService: SubmissionService) {}
 
   @Query(() => Submission, {
-    nullable: false,
+    nullable: true,
     description: 'Get submission.'
   })
   @UseGuards(UserGuard)
