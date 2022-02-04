@@ -65,6 +65,7 @@ export class ExceptionFilter implements Filter {
       });
     }
 
+    // TODO: add error logging.
     console.log(exception);
 
     return new ApolloError('Internal server error, try again.', 'internal', {

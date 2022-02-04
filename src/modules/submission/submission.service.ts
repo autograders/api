@@ -45,9 +45,30 @@ export class SubmissionService {
       throw new SubmissionNotFound();
     }
 
-    console.log(submission);
-
     return submission;
+  }
+
+  async getBest(user: User, input: GetSubmissionInput) {
+    const assignment = await this.assignmentModel.findById(input.assignmentId);
+
+    if (!assignment) {
+      throw new AssignmentNotFound();
+    }
+
+    const result = await this.submissionModel
+      .find({
+        user,
+        assignment,
+        status: {
+          $in: [SubmissionStatus.COMPLETED]
+        }
+      })
+      .sort('score')
+      .limit(1)
+      .populate('user')
+      .populate('assignment');
+
+    return result.pop();
   }
 
   async create(user: User, input: CreateSubmissionInput, file: FileUpload) {
@@ -61,7 +82,7 @@ export class SubmissionService {
       user,
       assignment,
       status: {
-        $in: [SubmissionStatus.IN_PROGRESS, SubmissionStatus.IN_PROGRESS]
+        $in: [SubmissionStatus.IN_PROGRESS, SubmissionStatus.PENDING]
       }
     });
 
@@ -78,17 +99,20 @@ export class SubmissionService {
     await this.s3.uploadPrivateFile(filename, file.mimetype, buffer);
 
     if (submission && submission.status === SubmissionStatus.PENDING) {
-      return await this.submissionModel.findByIdAndUpdate(
-        submission.id,
-        {
-          $set: {
-            sourceCode: filename
+      return await this.submissionModel
+        .findByIdAndUpdate(
+          submission.id,
+          {
+            $set: {
+              sourceCode: filename
+            }
+          },
+          {
+            returnDocument: 'after'
           }
-        },
-        {
-          returnDocument: 'after'
-        }
-      );
+        )
+        .populate('user')
+        .populate('assignment');
     }
 
     return await this.submissionModel.create({

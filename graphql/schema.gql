@@ -112,6 +112,9 @@ type Query {
 
   """Get submission."""
   getSubmission(input: GetSubmissionInput!): Submission!
+
+  """Get best submission."""
+  getBestSubmission(input: GetSubmissionInput!): Submission
 }
 
 """Get submission input."""

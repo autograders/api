@@ -27,6 +27,18 @@ export class SubmissionResolver {
     return this.submissionService.get(user, input);
   }
 
+  @Query(() => Submission, {
+    nullable: true,
+    description: 'Get best submission.'
+  })
+  @UseGuards(UserGuard)
+  getBestSubmission(
+    @AuthUser() user: User,
+    @Args('input') input: GetSubmissionInput
+  ) {
+    return this.submissionService.getBest(user, input);
+  }
+
   @Mutation(() => Submission, {
     nullable: false,
     description: 'Create submission.'
