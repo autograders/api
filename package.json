@@ -51,7 +51,7 @@
     "graphql-subscriptions": "^2.0.0",
     "graphql-type-json": "^0.3.2",
     "graphql-upload": "^13.0.0",
-    "handlebars": "^4.7.7",
+    "handlebars": "^4.7.9",
     "helmet": "^5.0.2",
     "mongoose": "^6.13.6",
     "nodemailer": "^6.9.9",
